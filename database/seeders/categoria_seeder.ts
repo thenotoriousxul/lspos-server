@@ -3,7 +3,7 @@ import Categoria from '#models/categoria'
 
 export default class extends BaseSeeder {
   async run() {
-    await Categoria.createMany([
+    const categorias = [
       {
         nombre: 'Aceites y Lubricantes',
         descripcion: 'Aceites para motor, transmisión, hidráulicos y lubricantes industriales'
@@ -44,7 +44,14 @@ export default class extends BaseSeeder {
         nombre: 'Accesorios',
         descripcion: 'Accesorios diversos para vehículos'
       }
-    ])
+    ]
 
+    // Usar firstOrCreate para evitar duplicados
+    for (const categoriaData of categorias) {
+      await Categoria.firstOrCreate(
+        { nombre: categoriaData.nombre },
+        categoriaData
+      )
+    }
   }
 }

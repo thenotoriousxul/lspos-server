@@ -3,7 +3,7 @@ import Producto from '#models/producto'
 
 export default class extends BaseSeeder {
   async run() {
-    await Producto.createMany([
+    const productos = [
       {
         codigo: 'ACE001',
         nombre: 'Aceite Motor 20W-50 Mineral 4L',
@@ -34,7 +34,6 @@ export default class extends BaseSeeder {
         stockMinimo: 5,
         categoriaId: 1
       },
-
       {
         codigo: 'FIL001',
         nombre: 'Filtro Aceite Universal',
@@ -65,7 +64,6 @@ export default class extends BaseSeeder {
         stockMinimo: 5,
         categoriaId: 2
       },
-
       {
         codigo: 'BAT001',
         nombre: 'Batería 12V 45AH',
@@ -86,7 +84,6 @@ export default class extends BaseSeeder {
         stockMinimo: 2,
         categoriaId: 3
       },
-
       {
         codigo: 'FRE001',
         nombre: 'Pastillas Freno Delanteras',
@@ -107,7 +104,6 @@ export default class extends BaseSeeder {
         stockMinimo: 10,
         categoriaId: 4
       },
-
       {
         codigo: 'SUS001',
         nombre: 'Amortiguador Delantero',
@@ -128,7 +124,6 @@ export default class extends BaseSeeder {
         stockMinimo: 3,
         categoriaId: 5
       },
-
       {
         codigo: 'MOT001',
         nombre: 'Bujías Set 4 Piezas',
@@ -149,7 +144,6 @@ export default class extends BaseSeeder {
         stockMinimo: 2,
         categoriaId: 6
       },
-
       {
         codigo: 'HER001',
         nombre: 'Llave Inglesa 12"',
@@ -170,7 +164,6 @@ export default class extends BaseSeeder {
         stockMinimo: 3,
         categoriaId: 9
       },
-
       {
         codigo: 'ACC001',
         nombre: 'Limpiador Tablero 500ml',
@@ -191,7 +184,14 @@ export default class extends BaseSeeder {
         stockMinimo: 15,
         categoriaId: 10
       }
-    ])
+    ]
 
+    // Usar firstOrCreate para evitar duplicados
+    for (const productoData of productos) {
+      await Producto.firstOrCreate(
+        { codigo: productoData.codigo },
+        productoData
+      )
+    }
   }
 }

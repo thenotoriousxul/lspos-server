@@ -19,7 +19,8 @@ export default class AuthController {
           user: {
             id: user.id,
             fullName: user.fullName,
-            email: user.email
+            email: user.email,
+            role: user.role
           },
           token
         }
@@ -50,7 +51,8 @@ export default class AuthController {
           user: {
             id: user.id,
             fullName: user.fullName,
-            email: user.email
+            email: user.email,
+            role: user.role
           },
           token
         }
@@ -100,6 +102,7 @@ export default class AuthController {
           id: user.id,
           fullName: user.fullName,
           email: user.email,
+          role: user.role,
           createdAt: user.createdAt
         }
       })

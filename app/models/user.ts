@@ -20,6 +20,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare email: string
 
+  @column()
+  declare role: 'admin' | 'employee'
+
   @column({ serializeAs: null })
   declare password: string
 
@@ -30,4 +33,21 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime | null
 
   static accessTokens = DbAccessTokensProvider.forModel(User)
+
+  // Métodos para verificar roles
+  isAdmin(): boolean {
+    return this.role === 'admin'
+  }
+
+  isEmployee(): boolean {
+    return this.role === 'employee'
+  }
+
+  hasRole(role: 'admin' | 'employee'): boolean {
+    return this.role === role
+  }
+
+  hasAnyRole(roles: ('admin' | 'employee')[]): boolean {
+    return roles.includes(this.role)
+  }
 }
